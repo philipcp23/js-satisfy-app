@@ -1,0 +1,23 @@
+{
+  "name": "satisfy",
+  "version": "1.0.0",
+  "description": "js-satisfy-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philipcp23/js-satisfy-app.git"
+  },
+  "author": "Phil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philipcp23/js-satisfy-app/issues"
+  },
+  "homepage": "https://github.com/philipcp23/js-satisfy-app#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1"
+  },
+  "dependencies": {}
+}
