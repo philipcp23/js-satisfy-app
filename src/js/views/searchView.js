@@ -69,12 +69,12 @@ const renderButtons = (page, numResults, resultsPerPage) => {
     if(page === 1 && pages > 1) {
         button = createButton(page, 'next');
     } else if(page < pages) {
-        button = ` 
-        ${createButton(page, 'prev')}
-        ${createButton(page, 'next')}
+        button = `
+            ${createButton(page, 'prev')}
+            ${createButton(page, 'next')}
         `;
     } else if(page === pages && pages > 1) {
-        button = createButton(page, 'next');
+        button = createButton(page, 'prev');
     }
 
     elements.searchResultPages.insertAdjacentHTML('afterbegin', button);
