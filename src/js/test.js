@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { api } from '../config';
+import { key, proxy } from '../config';
 
 export default class Recipe {
     constructor(id) {
@@ -8,25 +8,25 @@ export default class Recipe {
 
     async getRecipe() {
         try {
-            const results = await axios(`${api}/get?rId=${this.id}`);
-            this.title = results.data.recipe.title;
-            this.author = results.data.recipe.publisher;
-            this.img= results.data.recipe.image_url;
-            this.url = results.data.recipe.source_url;
-            this.ingredients = results.data.recipe.ingredients;
-        } catch(error) {
+            const res = await axios(`${proxy}http://food2fork.com/api/get?key=${key}&rId=${this.id}`);
+            this.title = res.data.recipe.title;
+            this.author = res.data.recipe.publisher;
+            this.img = res.data.recipe.image_url;
+            this.url = res.data.recipe.source_url;
+            this.ingredients = res.data.recipe.ingredients;
+        } catch (error) {
             console.log(error);
-            alert('alert in getRecipe()');
+            alert('Something went wrong :(');
         }
     }
 
     calcTime() {
-        const numIng = this.ingredients.lenght;
+        const numIng = this.ingredients.length;
         const periods = Math.ceil(numIng / 3);
         this.time = periods * 15;
     }
 
-    calcServing() {
+    calcServings() {
         this.servings = 4;
     }
 
@@ -43,16 +43,16 @@ export default class Recipe {
             ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
 
             const arrIng = ingredient.split(' ');
-            const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+            const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
             let objIng;
-            if(unitIndex > -1) { // is a unit
+            if (unitIndex > -1) {
                 const arrCount = arrIng.slice(0, unitIndex);
-
+                
                 let count;
-                if(arrCount.length === 1) {
+                if (arrCount.length === 1) {
                     count = eval(arrIng[0].replace('-', '+'));
-                } else { 
+                } else {
                     count = eval(arrIng.slice(0, unitIndex).join('+'));
                 }
 
@@ -62,26 +62,22 @@ export default class Recipe {
                     ingredient: arrIng.slice(unitIndex + 1).join(' ')
                 };
 
-            } else if(parseInt(arrIng[0], 10)) { // no unit but first el is number
+            } else if (parseInt(arrIng[0], 10)) {
                 objIng = {
                     count: parseInt(arrIng[0], 10),
                     unit: '',
                     ingredient: arrIng.slice(1).join(' ')
-                };
-
-            } else if(unitIndex > -1) { // no unit no number
+                }
+            } else if (unitIndex === -1) {
                 objIng = {
                     count: 1,
                     unit: '',
                     ingredient
-                };
-            };
+                }
+            }
+
             return objIng;
-
         });
-
         this.ingredients = newIngredients;
-
     }
 }
-
