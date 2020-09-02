@@ -1,6 +1,8 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
 import { elements, renderLoader, clearLoader } from './views/base';
+import Recipe from './models/Recipe';
+
 
 /** Global state of the app
  * - Search object
@@ -9,6 +11,10 @@ import { elements, renderLoader, clearLoader } from './views/base';
  * - Liked recipes
  */
 const state = {};
+
+/**
+ **********************SEARCH CONTROLLER**********************
+ */
 
 const controlSearch = async()=> {
     // 1. Get query from view
@@ -46,5 +52,10 @@ elements.searchResultPages.addEventListener('click', e => {
 });
 
 
-//const res = await axios(`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`);
+/**
+ **********************RECIPE CONTROLLER**********************
+ */
+const r = new Recipe(46956);
+r.getRecipe();
+console.log(r);
 
