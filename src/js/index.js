@@ -1,8 +1,8 @@
 import Search from './models/Search';
-import * as searchView from './views/searchView';
-import { elements, renderLoader, clearLoader } from './views/base';
 import Recipe from './models/Recipe';
-
+import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
+import { elements, renderLoader, clearLoader } from './views/base';
 
 /** Global state of the app
  * - Search object
@@ -60,19 +60,28 @@ elements.searchResultPages.addEventListener('click', e => {
 /**
  **********************RECIPE CONTROLLER**********************
  */
-const controlRecipe = async ()=> {
+const controlRecipe = async () => {
     const id = window.location.hash.replace('#', '');
-    console.log(id);
+    
     if(id) {
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe); 
+        if(state.search) {
+            searchView.highlightSelected(id);
+        }
         state.recipe = new Recipe(id);
+
         try {
             await state.recipe.getRecipe();
             state.recipe.parseIngredients();
+
             state.recipe.calcTime();
             state.recipe.calcServing();
-            console.log(state.recipe);
+
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
         } catch(err) {
-            alert('Error Processing Recipe');
+            alert('Error Processing Recipe!');
         }        
     }
 };

@@ -11,6 +11,15 @@ export const clearResults = ()=> {
     elements.searchResultPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active');
+    })
+    
+    document.querySelectorAll(`a[href*="#${id}"]`).classList.add('results__link--active');
+};
+
 // 'Pasta wih tomato and spinach'
 /*
 acc: 0 then acc + cur.length = 5 then newTitle = ['Pasta']
@@ -49,7 +58,7 @@ const renderRecipe = recipe => {
     </li>
     `;
     elements.searchResultList.insertAdjacentHTML('beforeend', markup);
-};
+}
 
 // type: 'prev' or 'next'
 const createButton = (page, type) => `
@@ -87,4 +96,5 @@ export const renderResults = (recipes, page = 1, resultsPerPage = 10) => {
 
     renderButtons(page, recipes.length, resultsPerPage);
 
-}
+};
+
