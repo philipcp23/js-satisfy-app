@@ -112,9 +112,11 @@ const controlList = () => {
 /**
  **********************LIKE CONTROLLER**********************
  */
+
 /// TESTING
 state.likes = new Likes();
 likesView.toggleLikeMenu(state.likes.getNumLikes());
+/// TESTING
 
 const controlLike = () => {
     if(!state.likes) state.likes = new Likes();
