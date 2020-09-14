@@ -128,9 +128,10 @@ const controlLike = () => {
             state.recipe.title, 
             state.recipe.author, 
             state.recipe.img
-        );
+        );        
         likesView.toggleLikeBtn(true);
-        likesView.renderLike(newLike)
+        likesView.renderLike(newLike);
+
 
 
     } else {
@@ -158,8 +159,6 @@ elements.shopping.addEventListener('click', e => {
         state.list.updateCount(id, val)
     }
 });
-
-
 
 elements.recipe.addEventListener('click', e => {
     if(e.target.matches('.btn-decrease, .btn-decrease *')) {

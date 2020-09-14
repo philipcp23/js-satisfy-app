@@ -3,10 +3,11 @@ export default class Likes {
         this.likes = [];
     }
 
-    addLike(id, title, img) {
+    addLike(id, title, author, img) {
         const like = {
             id,
             title,
+            author,
             img
         };
         this.likes.push(like);

@@ -21,7 +21,7 @@ export default class Recipe {
     }
 
     calcTime() {
-        const numIng = this.ingredients.lenght;
+        const numIng = this.ingredients.length;
         const periods = Math.ceil(numIng / 3);
         this.time = periods * 15;
     }
