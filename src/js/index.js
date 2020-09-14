@@ -113,11 +113,6 @@ const controlList = () => {
  **********************LIKE CONTROLLER**********************
  */
 
-/// TESTING
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
-/// TESTING
-
 const controlLike = () => {
     if(!state.likes) state.likes = new Likes();
     const currentId = state.recipe.id;
@@ -143,6 +138,12 @@ const controlLike = () => {
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    state.likes.readStorage();
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 /**
  * Handle delete and update list 
